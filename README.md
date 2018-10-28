@@ -1,37 +1,18 @@
-## Welcome to GitHub Pages
+# API Project: Timestamp Microservice for FCC
 
-You can use the [editor on GitHub](https://github.com/ows-ali/boilerplate-project-timestamp/edit/master/README.md) to maintain and preview the content for your website in Markdown files.
+### User stories :
 
-Whenever you commit to this repository, GitHub Pages will run [Jekyll](https://jekyllrb.com/) to rebuild the pages in your site, from the content in your Markdown files.
+1. The API endpoint is `GET [project_url]/api/timestamp/:date_string?`
+2. A date string is valid if can be successfully parsed by `new Date(date_string)` (JS) . Note that the unix timestamp needs to be an **integer** (not a string) specifying **milliseconds**. In our test we will use date strings compliant with ISO-8601 (e.g. `"2016-11-20"`) because this will ensure an UTC timestamp.
+3. If the date string is **empty** it should be equivalent to trigger `new Date()`, i.e. the service uses the current timestamp.
+4. If the date string is **valid** the api returns a JSON having the structure 
+`{"unix": <date.getTime()>, "utc" : <date.toUTCString()> }`
+e.g. `{"unix": 1479663089000 ,"utc": "Sun, 20 Nov 2016 17:31:29 GMT"}`.
+5. If the date string is **invalid** the api returns a JSON having the structure `{"unix": null, "utc" : "Invalid Date" }`. It is what you get from the date manipulation functions used above.
 
-### Markdown
+#### Example usage:
+* https://curse-arrow.hyperdev.space/api/timestamp/2015-12-15
+* https://curse-arrow.hyperdev.space/api/timestamp/1450137600000
 
-Markdown is a lightweight and easy-to-use syntax for styling your writing. It includes conventions for
-
-```markdown
-Syntax highlighted code block
-
-# Header 1
-## Header 2
-### Header 3
-
-- Bulleted
-- List
-
-1. Numbered
-2. List
-
-**Bold** and _Italic_ and `Code` text
-
-[Link](url) and ![Image](src)
-```
-
-For more details see [GitHub Flavored Markdown](https://guides.github.com/features/mastering-markdown/).
-
-### Jekyll Themes
-
-Your Pages site will use the layout and styles from the Jekyll theme you have selected in your [repository settings](https://github.com/ows-ali/boilerplate-project-timestamp/settings). The name of this theme is saved in the Jekyll `_config.yml` configuration file.
-
-### Support or Contact
-
-Having trouble with Pages? Check out our [documentation](https://help.github.com/categories/github-pages-basics/) or [contact support](https://github.com/contact) and we’ll help you sort it out.
+#### Example output:
+* { "unix": 1450137600, "natural": "December 15, 2015" }
