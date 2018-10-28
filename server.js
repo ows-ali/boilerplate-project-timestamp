@@ -27,21 +27,26 @@ app.get("/api/hello", function (req, res) {
   res.json({greeting: 'hello APIdd'});
 });
 
-
 app.get("/api/timestamp/:date_string?", function(req,res) {
 	var test="";
 	var unixVal = "";
 	var utcVal = "";
+	var dateFormat = "";
 	if (req.params.date_string == null)
 	{
-		var dateFormat = new Date();
+		dateFormat = new Date();
 		utcVal = dateFormat.toUTCString();
 		unixVal = dateFormat.getTime();	
 	}
 	else 
 	{
-		var dateFormat = new Date(req.params.date_string);
-
+		if (req.params.date_string === parseInt(req.params.date_string, 10).toString()){
+			dateFormat=new Date(parseInt(req.params.date_string,10));
+		}
+		else
+		{
+			dateFormat = new Date(req.params.date_string);
+		}
 		utcVal = dateFormat.toUTCString();
 		unixVal = dateFormat.getTime();
 	}
